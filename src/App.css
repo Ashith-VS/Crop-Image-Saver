@@ -1,38 +1,96 @@
-.App {
-  text-align: center;
+.file-upload-gallery {
+  font-family: Arial, sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+header {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding: 20px;
+  background-color: #4a90e2;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+header nav a {
+  margin: 0 10px;
+  color: white;
+  text-decoration: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.upload-area {
+  text-align: center;
+  margin: 20px;
+}
+
+.drag-drop-zone {
+  border: 2px dashed #4a90e2;
+  padding: 40px;
+  cursor: pointer;
+}
+
+.gallery-controls {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+}
+
+.files.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 20px;
+}
+
+.files.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.file-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+  position: relative; /* Make the parent container relative */
+}
+
+.file-card img {
+  max-width: 100%;
+  height: auto;
+}
+
+.delete-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  opacity: 0.7; /* Slight opacity for visual appeal */
+}
+
+.delete-button img {
+  width: 20px;
+  height: 20px;
+}
+
+.delete-button:hover {
+  opacity: 1; /* Full opacity on hover */
+}
+.cancel-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  opacity: 0.7; /* Slight opacity for visual appeal */
+}
+
+.cancel-button img {
+  width: 40px;
+  height: 40px;
+}
+
+.cancel-button:hover {
+  opacity: 1; /* Full opacity on hover */
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
 }
