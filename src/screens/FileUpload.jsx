@@ -14,6 +14,8 @@ import deleteIcon from "../assets/images/1814090_delete_garbage_trash_icon.png";
 import cancelIcon from "../assets/images/430088_circle_close_delete_remove_icon.png";
 import ReactModal from "react-modal";
 import Pagination from "../components/Pagination";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 const FileUpload = () => {
   const [imageList, setImageList] = useState([]);
@@ -26,7 +28,6 @@ const FileUpload = () => {
   const imageRef = useRef(null);
   const canvasRef = useRef(null);
   const fileInputRef = useRef(null);
-  // console.log(imageList);
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
@@ -146,10 +147,28 @@ const FileUpload = () => {
   };
 
   const handleDeleteImage = (image) => {
+    confirmAlert({
+      title: "Confirm to delete",
+      message: "Are you sure you want to delete this image?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => deleteImage(image),
+        },
+        {
+          label: "No",
+        },
+      ],
+    });
+  };
+
+  const deleteImage = (image) => {
     const imageRef = ref(storage, image.path);
     deleteObject(imageRef)
       .then(() => {
         fetchImages();
+        setShowModal(false);
+        setSelectedImage(null);
         //  alert("Image deleted successfully");
       })
       .catch((error) => {
@@ -189,18 +208,19 @@ const FileUpload = () => {
   };
 
   const handleDeleteModalImage = () => {
-    // console.log(selectedImage)
-    const imageRef = ref(storage, selectedImage.path);
-    deleteObject(imageRef)
-      .then(() => {
-        fetchImages();
-        setShowModal(false);
-        setSelectedImage(null);
-        //  alert("Image deleted successfully");
-      })
-      .catch((error) => {
-        console.error("Error deleting image:", error);
-      });
+    confirmAlert({
+      title: 'Confirm to delete',
+      message: 'Are you sure you want to delete this image?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => deleteImage(selectedImage),
+        },
+        {
+          label: 'No',
+        },
+      ],
+    });
   };
 
   return (
@@ -230,7 +250,6 @@ const FileUpload = () => {
             </div>
           </div>
         </div>
-
         <div className="gallery-area">
           <div className="files list">
             {imageSrc && (
@@ -257,7 +276,7 @@ const FileUpload = () => {
                 <div className="d-flex justify-content-end mt-3">
                   <button
                     type="button"
-                    className="btn btn-primary ms-3 "
+                    className="btn btn-primary ms-3"
                     onClick={handleClearFile}
                   >
                     cancel
@@ -298,7 +317,7 @@ const FileUpload = () => {
             <img
               src={selectedImage?.url}
               alt=""
-              // style={{ maxHeight: "70vh" }}
+              style={{ maxHeight: "50vh" }}
             />
             <div className="d-flex justify-content-end mt-3">
               <button
